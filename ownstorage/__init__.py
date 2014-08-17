@@ -58,3 +58,28 @@ def objectstorage(opath=''):
         for word in res:
             response.headers[word[0]] = word[1]
         return response
+
+
+
+@app.route('/services/objectstorage/')
+def list_buckets():
+    res = '''<?xml version="1.0" encoding="UTF-8"?>
+<ListAllMyBucketsResult xmlns="http://s3.amazonaws.com/doc/2006-03-01">
+  <Owner>
+    <ID>bcaf1ffd86f461ca5fb16fd081034f</ID>
+    <DisplayName>ownstorage</DisplayName>
+  </Owner>
+  <Buckets>
+    <Bucket>
+      <Name>bucket2</Name>
+      <CreationDate>2014-01-05T19:34:02.000Z</CreationDate>
+    </Bucket>
+    <Bucket>
+      <Name>bucket1</Name>
+      <CreationDate>2014-01-05T12:12:39.000Z</CreationDate>
+    </Bucket>
+  </Buckets>
+</ListAllMyBucketsResult>'''
+    response = flask.make_response(res )
+    response.headers['Content-Type'] = 'text/xml'
+    return response

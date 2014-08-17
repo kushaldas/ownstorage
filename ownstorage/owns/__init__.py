@@ -1,5 +1,6 @@
 import os
 import json
+from lxml import etree
 from redis import Redis
 redis = Redis(db=10)
 
