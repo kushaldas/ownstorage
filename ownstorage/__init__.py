@@ -26,6 +26,7 @@ import flask
 from flask import request
 from flask import send_from_directory
 from functools import wraps
+import owns
 
 __version__ = '0.1'
 
@@ -46,3 +47,14 @@ def index():
     return 'Hello World!'
 
 
+@app.route('/services/objectstorage/<opath>', methods=['GET', 'PUT', 'POST', 'DELETE'])
+def objectstorage(opath=''):
+    print request.headers
+
+    if request.method == 'PUT' and opath != '':
+        res = owns.add_bucket(opath)
+
+        response = flask.make_response('')
+        for word in res:
+            response.headers[word[0]] = word[1]
+        return response
